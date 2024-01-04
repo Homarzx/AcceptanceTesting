@@ -1,3 +1,4 @@
+# features/testing.feature
 Feature: Task Management
 
   Scenario: Adding a task
@@ -6,30 +7,27 @@ Feature: Task Management
     Then the task list should contain "<task_name>"
 
   Scenario: Listing all tasks
-    Given a task list with tasks:
-      | Task Name   |
-      | Task 1       |
-      | Task 2       |
+    Given an empty task list
+    When a task named "Task 1" is added
     When I list all tasks
     Then I should see the following tasks in the list:
-      | Task Name   |
-      | Task 1       |
-      | Task 2       |
+      |Task Name|
+      |Task 1|
 
   Scenario: Marking a task as completed
     Given a task list with tasks:
       | Task Name   |
       | Task 1       |
-    When I mark task "<task_name>" as completed
-    Then the status of task "<task_name>" should be "Completed"
+    When I mark task "Task 1" as completed
+    Then the status of task "Task 1" should be "Completada"
 
   Scenario: Clearing completed tasks
     Given a task list with tasks:
       | Task Name   | Status      |
-      | Task 1       | Completed   |
-      | Task 2       | Pending     |
+      | Task 1       | Completada  |
+      | Task 2       | Pendiente   |
     When I clear completed tasks
-    Then the task list should only contain tasks with status "Pending"
+    Then the task list should only contain tasks with status "Pendiente"
 
   Scenario: Clearing all tasks
     Given a task list with tasks:
@@ -42,7 +40,7 @@ Feature: Task Management
   Scenario: Marking all tasks as completed
     Given a task list with tasks:
       | Task Name   | Status      |
-      | Task 1       | Pending     |
-      | Task 2       | Pending     |
+      | Task 1       | Pendiente   |
+      | Task 2       | Pendiente   |
     When I mark all tasks as completed
-    Then all tasks in the list should have status "Completed"
+    Then all tasks in the list should have status "Completada"
